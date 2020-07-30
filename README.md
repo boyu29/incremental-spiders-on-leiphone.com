@@ -8,4 +8,6 @@ Since my major is EE and I do power system analysis, I'm new to python programmi
 
 My advisor suggests I get down to do a project to improve my programming skills.
 
+## Instructions
+
 In this project, I utilized several modules and functions for operating web browser, seperating essential information, downloading images, saving data locally and running the project automatically in specific time point.

@@ -1,12 +1,5 @@
 # encoding = 'utf-8'
 
-# site = 'https://www.leiphone.com/news/202007/sTcI6zI8wh0zRr7v.html'
-
-# with open(r'/Users/chenayu/Desktop/leiphone_3/leiphonetitle.txt', 'r') as fp:
-#     for line in fp.readlines():
-#         if site in line:
-#             print('site exists')
-
 from bs4 import BeautifulSoup
 from selenium import webdriver
 import time
@@ -53,10 +46,6 @@ def getArticlelst(soup):
         if not title_name:
             continue
         artitle_url = str(title.get('href')) # 获取文章链接
-
-        # if artitle_url in article_url_record:
-        #     continue
-        # path_titlelst = /Users/chenayu/Desktop/leiphone_3/leiphonetitle_1.txt
         foo = open(r'/Users/chenayu/Desktop/leiphone_3/leiphonetitle_1.txt', 'r')
         isInrecord = False
         for line in foo.readlines():
@@ -81,7 +70,7 @@ def getArticlelst(soup):
     return artitle_url_lst
 
 def getArticleInfor(soup,num,folder_path):
-    '''获取文章信息'''
+    '''获取文章属性信息信息（标题、作者、导语）'''
     divs_infor = soup.select('body > div.lphArticle-detail > div.article-template > div.article-title')
     txtfilename = folder_path + '/article' + str(num) + '.txt'
     for info in divs_infor:
@@ -153,7 +142,6 @@ def getImg(soup,num,folder_path,headers):
                 time.sleep(0.1)
             print('图片爬取完成。')
 
-
 def main():
     print('----------------------PROJ START----------------------')
     web_url = 'https://www.leiphone.com/'
@@ -162,21 +150,12 @@ def main():
     global num
     # while True:
     scrollPage(driver)
-
     soup1 = BeautifulSoup(driver.page_source, 'lxml')
-
     artitle_url_lst = getArticlelst(soup1)
-
     if artitle_url_lst:
         for i in range(len(artitle_url_lst)):
             num+=1
             link = artitle_url_lst[i]
-            # if link in article_url_record:
-            #     print('文章已存在！')
-            #     continue
-            # else:
-            # print(num)
-            # article_url_record.append(link)
             headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.80 Safari/537.36"}
             try:
                 responsne = requests.get(link, headers = headers)
@@ -197,21 +176,13 @@ def main():
             getArticleInfor(soup,num,folder_path)
             getText(soup,num,folder_path)
             getImg(soup,num,folder_path,headers)
-        # driver.find_element_by_xpath(r"/html/body/div[3]/div/div[1]/div[3]/div[2]/div[2]/a[2]").click()
-        # article_url_record.append(link)
+        # driver.find_element_by_xpath(r"/html/body/div[3]/div/div[1]/div[3]/div[2]/div[2]/a[2]").click()   # 控制网页翻页
     else:
         pass
-    # print(article_url_record)
     driver.close()
-    # print(article_num)
     # print(article_url_lst)
 
 if __name__ == '__main__':
-    # article_num = 0             # 用于存储文章标题文件
-    # open(r"/Users/chenayu/Desktop/leiphone_3/leiphonetitle_1.txt",'a')
-    # num = count = int(len(open(r"/Users/chenayu/Desktop/leiphone_3/leiphonetitle_1.txt",'rU').readlines()) / 2)
-    # num = 0                     # 用于生成文章保存路径
-    # article_url_record = []     # 存放已获取文章的url
     schedule.every(5).minutes.do(main)
     while True:
         schedule.run_pending()

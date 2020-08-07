@@ -1,4 +1,4 @@
-# Spiders on leiphone.com
+# Incremental Spiders on leiphone.com
 
 ## Backgrounds
 
@@ -16,7 +16,7 @@ You can download and run the spider_leiphoneupdates_github.py on your computer d
 
 - Open web browser via ChromeDriver, scroll the page down to the bottom to load more.
 - Get the title and link of each article. Save the information to 'leiphonetitle.txt'.
-- Read the 'leiphonetitle.txt' file and use the file data as a reference to achieve incremental storage.
+- Read the 'leiphonetitle.txt' file and use the file data as a reference to achieve **incremental storage**.
 - Create a separate folder for each article to save data.
 - Get the text content of the article. Save it to the 'article.txt' file in the corresponding folder.
 - Format and store the data in an table to improve readability.

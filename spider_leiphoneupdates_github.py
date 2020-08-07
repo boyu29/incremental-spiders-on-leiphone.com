@@ -238,10 +238,10 @@ if __name__ == '__main__':
     '''
     timed run
     '''
-    schedule.every(1).minutes.do(main)
+    schedule.every(1).hours.do(main)
     # schedule.every().day.at("16:49").do(main) 
     while True:
         schedule.run_pending()
         # check every 30 minutes
-        time.sleep(10)
+        time.sleep(1800)
         print(datetime.datetime.now())
